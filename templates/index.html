@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lisa Chatbot</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/simplebar/dist/simplebar.min.css" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1e1e1e;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
+            justify-content: center; /* Center content vertically */
+            height: 100vh; /* Set height to 100% of the viewport height */
+        }
+
+        #meet-lisa {
+            font-size: 8em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #4CAF50;
+            text-align : center;
+        }
+
+        #welcome-text {
+            max-width: 800px;
+            line-height: 1.6;
+            font-size: 1.2em;
+            text-align: center; /* Center text */
+        }
+
+        #try-lisa-btn {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        #try-lisa-btn:hover {
+            background-color: #45a049;
+        }
+
+        #other-services {
+            font-size: 2em;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #4CAF50;
+            text-align: center; /* Center text */
+        }
+        
+        #services-container {
+            display: flex;
+            align-items: center; /* Center content horizontally */
+            justify-content: center; /* Center content horizontally */
+            margin-top: 10px; /* Adjust margin as needed */
+        }
+        
+        .service-btn {
+            margin: 0 10px; /* Adjust margin between buttons */
+            padding: 10px 20px;
+            font-size: 1em; /* Adjust the font size to make them smaller */
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .service-btn:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div>
+        <div id="meet-lisa">meet  'Lisa'</div>
+        <div id="welcome-text">
+            Welcome to Lisa AI, crafted by Praveen to provide empathetic support for those facing depression, PTSD, and mental health challenges. Our chatbot offers personalized, 24/7 assistance, prioritizing user privacy. Lisa AI aims to be a compassionate companion, breaking down barriers and fostering a sense of understanding on the journey to mental well-being.
+            <button id="try-lisa-btn" onclick="redirectToChat()" style = 'text-align  :center;'>Try Lisa</button>
+        </div>
+
+        <!-- Additional content -->
+        <div id="other-services">Other Services : </div>
+        <div id="services-container">
+            <button class="service-btn" onclick="redirectToPage('heart_disease_detection.html')">Detect Heart Disease</button>
+            <button class="service-btn" onclick="redirectToPage('kidney_disease_detection.html')">Detect Kidney Disease</button>
+        </div>
+    </div>
+
+    <!-- Add SimpleBar JS -->
+    <script src="https://unpkg.com/simplebar/dist/simplebar.min.js"></script>
+
+    <script>
+        function redirectToChat() {
+            window.location.href = 'chat.html';
+        }
+
+        function redirectToPage(page) {
+            window.location.href = page;
+        }
+    </script>
+
+</body>
+</html>

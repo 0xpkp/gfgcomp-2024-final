@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>L Kidney Disease Detection</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/simplebar/dist/simplebar.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #1e1e1e;
+        color: #fff;
+        height: 100vh;
+      }
+
+      .container {
+        text-align: center;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .form-group label {
+        margin-right: 10px;
+      }
+
+      .form-control {
+        background-color: #333;
+        color: #fff;
+        flex: 1;
+      }
+
+      .btn-primary {
+        background-color: #4caf50;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background-color: #45a049;
+      }
+
+      #result {
+        margin-top: 20px;
+        font-size: 1.2em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h2>L Kidney Disease Detection</h2>
+      <form id="lkidneyDiseaseForm">
+        <!-- First row of input fields -->
+        <div class="form-group">
+          <label for="age">Age:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="age"
+            name="age"
+            min="0"
+            required
+          />
+
+          <label for="bp">Blood Pressure (mm/Hg):</label>
+          <input
+            type="number"
+            class="form-control"
+            id="bp"
+            name="bp"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="sg">Specific Gravity:</label>
+          <select class="form-control" id="sg" name="sg" required>
+            <option value="1.005">1.005</option>
+            <option value="1.010">1.010</option>
+            <option value="1.015">1.015</option>
+            <option value="1.020">1.020</option>
+            <option value="1.025">1.025</option>
+          </select>
+
+          <label for="al">Albumin:</label>
+          <select class="form-control" id="al" name="al" required>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="su">Sugar(nominal):</label>
+          <select class="form-control" id="su" name="su" required>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+
+          <label for="rbc">Red Blood Cells(nominal):</label>
+          <select class="form-control" id="rbc" name="rbc" required>
+            <option value="1">normal</option>
+            <option value="0">abnormal</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="pc">Pus Cell (nominal):</label>
+          <select class="form-control" id="pc" name="pc" required>
+            <option value="1">normal</option>
+            <option value="0">abnormal</option>
+          </select>
+
+          <label for="pcc">Pus Cell clumps(nominal):</label>
+          <select class="form-control" id="pcc" name="pcc" required>
+            <option value="1">present</option>
+            <option value="0">not present</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="ba">Bacteria(nominal):</label>
+          <select class="form-control" id="ba" name="ba" required>
+            <option value="1">Present</option>
+            <option value="0">Not present</option>
+          </select>
+
+          <label for="bgr">Blood Glucose Random(numerical):</label>
+          <input
+            type="number"
+            class="form-control"
+            id="bgr"
+            name="bgr"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="bu">Blood Urea(numerical):</label>
+          <input
+            type="number"
+            class="form-control"
+            id="bu"
+            name="bu"
+            required
+          />
+
+          <label for="sc">Serum Creatinine:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="sc"
+            name="sc"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="sod">Sodium in mEq/L:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="sod"
+            name="sod"
+            required
+          />
+
+          <label for="pot">Potassium in mEq/L:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="pot"
+            name="pot"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="hemo">Hemoglobin in gms:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="hemo"
+            name="hemo"
+            required
+          />
+
+          <label for="pcv">Packed Cell Volume:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="pcv"
+            name="pcv"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="wc">White Blood Cell Count in cells/cumm:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="wc"
+            name="wc"
+            required
+          />
+
+          <label for="rc">Red Blood Cell Count in millions/cmm:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="rc"
+            name="rc"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="htn">Hypertension:</label>
+          <select class="form-control" id="htn" name="htn" required>
+            <option value="1">yes</option>
+            <option value="0">no</option>
+          </select>
+
+          <label for="dm">Diabetes Mellitus:</label>
+          <select class="form-control" id="dm" name="dm" required>
+            <option value="1">yes</option>
+            <option value="0">no</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="cad">Coronary Artery Disease:</label>
+          <select class="form-control" id="cad" name="cad" required>
+            <option value="1">yes</option>
+            <option value="0">no</option>
+          </select>
+
+          <label for="appet">Appetite:</label>
+          <select class="form-control" id="appet" name="appet" required>
+            <option value="0">good</option>
+            <option value="1">poor</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="pe">Pedal Edema:</label>
+          <select class="form-control" id="pe" name="pe" required>
+            <option value="1">yes</option>
+            <option value="0">no</option>
+          </select>
+
+          <label for="ane">Anemia:</label>
+          <select class="form-control" id="ane" name="ane" required>
+            <option value="1">yes</option>
+            <option value="0">no</option>
+          </select>
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="submitForm()">
+          Submit
+        </button>
+      </form>
+
+      <div id="result" class="mt-3"></div>
+    </div>
+
+    <script>
+      function submitForm() {
+        // Fetch user input values and create formData object
+
+        // Example: Use the same structure as in heart_disease_detection.html
+
+        var formData = {
+          age: parseInt(document.getElementById("age").value),
+          bp: parseInt(document.getElementById("bp").value),
+          sg: parseFloat(document.getElementById("sg").value),
+          // Add other input fields here
+        };
+
+        fetch("/kidney_response", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // Display the prediction result in a confirm dialog box
+            var userResponse = window.confirm(
+              "Our model has predicted that chances of having L kidney disease is " +
+                data.result +
+                "%. Click OK to dismiss."
+            );
+
+            // If user clicks "OK," you can handle additional logic here
+            if (userResponse) {
+              console.log("User clicked OK");
+              // Additional logic if needed
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+    </script>
+
+    <script src="https://unpkg.com/simplebar/dist/simplebar.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lisa Chatbot</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1e1e1e;
+            color: #fff;
+            scrollbar-width: thin; /* Firefox */
+        }
+
+        #chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 85vh;
+            width: 100vw;
+            background-color: #333;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            scrollbar-width: thin; /* Firefox */
+            padding-right: 10px; /* Add padding to the right side */
+        }
+
+        .user-message {
+            text-align: right;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .bot-message {
+            text-align: left;
+            color: #ffd700; /* Yellow color for bot's messages */
+            margin-bottom: 10px;
+        }
+
+        .bot-name {
+            font-weight: bold; /* Make the bot's name bold */
+            color: #ffd700; /* Yellow color for bot's name */
+        }
+
+        #user-input {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        #message-input {
+            width: 50%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #777;
+            border-radius: 4px;
+            color: #fff;
+            background-color: #444;
+        }
+
+        #send-button {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #send-button:hover {
+            background-color: #45a049;
+        }
+
+        /* Handle for the scrollbar in WebKit browsers (Chrome, Safari) */
+        body::-webkit-scrollbar {
+            width: 0.3em;
+        }
+
+        /* Handle for the scrollbar in Firefox */
+        body::-webkit-scrollbar-thumb {
+            background-color: #4CAF50;
+            outline: 1px solid #1e1e1e;
+        }
+
+        /* Track for the scrollbar in Firefox */
+        body::-webkit-scrollbar-track {
+            background-color: #1e1e1e;
+        }
+
+        /* Scrollbar styles for Firefox */
+        body {
+            scrollbar-color: #4CAF50 #1e1e1e; /* Firefox */
+        }
+
+        #chat-container {
+            scrollbar-width: thin; /* Firefox */
+            scrollbar-color: #4CAF50 #1e1e1e; /* Firefox */
+        }
+
+        /* Custom scrollbar for WebKit browsers (Chrome, Safari) */
+        #chat-container::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        #chat-container::-webkit-scrollbar-thumb {
+            background-color: #4CAF50;
+        }
+
+        #chat-container::-webkit-scrollbar-track {
+            background-color: #1e1e1e;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chat-container">
+        <div id="chat-messages"></div>
+        <div id="user-input">
+            <input type="text" id="message-input" placeholder="Type your message..." onkeydown="handleEnter(event)">
+            <button id="send-button" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            // Get user input
+            const userInput = document.getElementById('message-input').value;
+
+            // Display user message
+            const userMessageHtml = `<div class="user-message">${userInput}</div>`;
+            document.getElementById('chat-messages').innerHTML += userMessageHtml;
+
+            // Send user input to the backend and get bot response
+            fetch('/get_response', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `user_input=${userInput}`,
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display bot response with Lisa's name in bold
+                const botResponseHtml = `<div class="bot-message"><span class="bot-name">Lisa:</span> ${data.bot_response}</div>`;
+                document.getElementById('chat-messages').innerHTML += botResponseHtml;
+            })
+            .catch(error => console.error('Error:', error));
+
+            // Clear user input
+            document.getElementById('message-input').value = '';
+        }
+
+        function handleEnter(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+    </script>
+</body>
+</html>

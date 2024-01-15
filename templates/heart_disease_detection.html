@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Detection</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/simplebar/dist/simplebar.min.css" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1e1e1e;
+            color: #fff;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-group label {
+            margin-right: 10px;
+        }
+
+        .form-control {
+            background-color: #333;
+            color: #fff;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h2>Heart Disease Detection</h2>
+        <form id="heartDiseaseForm">
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" class="form-control" id="age" name="age" min="0" max="200" required>
+            </div>
+            <div class="form-group">
+                <label for="sex">Sex:</label>
+                <select class="form-control" id="sex" name="sex" required>
+                    <option value="1">Male</option>
+                    <option value="0">Female</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="cp">Chest pain:</label>
+                <select class="form-control" id="cp" name="cp" required>
+                    <option value="0">No pain</option>
+                    <option value="1">Low pain</option>
+                    <option value="2">Moderate pain</option>
+                    <option value="3">High pain</option>
+                    <option value="4">Very high pain</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="trestbps">Resting blood pressure:</label>
+                <input type="number" class="form-control" id="trestbps" name="trestbps" required>
+            </div>
+
+            <div class="form-group">
+                <label for="chol">Cholestrol:</label>
+                <input type="number" class="form-control" id="chol" name="chol" required>
+            </div>
+
+            <div class="form-group">
+                <label for="fbs">Fasting blood sugar:</label>
+                <select class="form-control" id="fbs" name="fbs" required>
+                    <option value="1">greater than 120 mg/dl</option>
+                    <option value="0">less than 120 mg/dl</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="restecg">Resting electrocardiogram:</label>
+                <select class="form-control" id="restecg" name="restecg" required>
+                    <option value="0">less than 3 v/t</option>
+                    <option value="1">between 3 v/t - 6 v/t</option>
+                    <option value="2">greater than 6 v/t</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="thalach">Maximum heart rate achieved:</label>
+                <input type="number" class="form-control" id="thalach" name="thalach" required>
+            </div>
+
+            <div class="form-group">
+                <label for="exang">Exercise induced angina:</label>
+                <select class="form-control" id="exang" name="exang" required>
+                    <option value="1">yes</option>
+                    <option value="0">no</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="oldpeak">Oldpeak:</label>
+                <input type="number" class="form-control" id="oldpeak" name="oldpeak" min = '0' max = '10' required>
+            </div>
+
+            <div class="form-group">
+                <label for="slope">Slope of the peak exercise ST segment:</label>
+                <select class="form-control" id="slope" name="slope" required>
+                    <option value="0">slope = 0</option>
+                    <option value="1">slope = 1</option>
+                    <option value="2">slope = 2</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="ca">Number of major vessels colored by fluroscopy:</label>
+                <select class="form-control" id="ca" name="ca" required>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="thal">Thal:</label>
+                <select class="form-control" id="thal" name="thal" required>
+                    <option value="0">normal</option>
+                    <option value="1">fixed defect</option>
+                    <option value="2">reversable defect</option>
+                </select>
+            </div>
+
+            <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
+        </form>
+
+        <div id="result" class="mt-3"></div>
+    </div>
+
+    <script>
+        function submitForm() {
+            var formData = {
+                age: parseInt(document.getElementById('age').value),
+                sex: parseInt(document.getElementById('sex').value),
+                cp: parseInt(document.getElementById('cp').value),
+                trestbps: parseFloat(document.getElementById('trestbps').value),
+                chol: parseFloat(document.getElementById('chol').value),
+                fbs: parseInt(document.getElementById('fbs').value),
+                restecg: parseInt(document.getElementById('restecg').value),
+                thalach: parseFloat(document.getElementById('thalach').value),
+                exang: parseInt(document.getElementById('exang').value),
+                oldpeak: parseFloat(document.getElementById('oldpeak').value),
+                slope: parseInt(document.getElementById('slope').value),
+                ca: parseInt(document.getElementById('ca').value),
+                thal: parseInt(document.getElementById('thal').value),
+            };
+        
+            fetch('/heart_disease_detection_submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the prediction result in a confirm dialog box
+                var userResponse = window.confirm('Our model has predicted that chances of getting a heart disease is ' + data.result + '%. Click OK to dismiss.');
+                
+                // If user clicks "OK," you can handle additional logic here
+                if (userResponse) {
+                    console.log('User clicked OK');
+                    // Additional logic if needed
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        
+        
+        
+        
+    </script>
+
+    <script src="https://unpkg.com/simplebar/dist/simplebar.min.js"></script>
+
+</body>
+</html>
