@@ -1,4 +1,4 @@
--U pip
+-upgrade pip
 statsmodels
 SciPy
 scikit-learn
