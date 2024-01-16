@@ -89,7 +89,7 @@ def heart_response(data):
         scaler = StandardScaler()
         values = scaler.fit_transform(values)
 
-        model = load(open(r"gfgcomp/model_heart.pkl", 'rb'))
+        model = load(open(r"model_heart.pkl", 'rb'))
         prediction = model.predict(values) * 100
         print("Prediction:", prediction)  # Print the prediction value for debugging
 
@@ -103,7 +103,7 @@ def heart_response(data):
 # Load the kidney disease model and scaler
 def load_kidney_model():
     # Replace these paths with the actual paths to your kidney disease model and scaler
-    model_path = r"gfgcomp/model_kidney.pkl"
+    model_path = r"model_kidney.pkl"
     model = load(open(model_path, 'rb'))
     
     return model
