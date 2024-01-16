@@ -3,8 +3,8 @@ SciPy
 scikit-learn
 pandas
 numpy
-keras==2.15.0
-tensorflow==2.15.0
+keras
+tensorflow
 pickle
 matplotlib
 seaborn
